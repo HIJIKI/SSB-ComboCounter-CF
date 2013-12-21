@@ -127,16 +127,16 @@
 					} else {
 						if( ExistB(""+tmp+"\\"+ExistFileName(1)) == 1 ){
 							Project64kDirectoryPath = tmp
+							//反映について
+							Titlebar = ""+PROGRAM_NAME
+							Message = "設定を反映するには、\nアプリケーションを再起動する必要があります。"
+							dialog Message, 0, Titlebar
 						} else {
 							dialog "["+ExistFileName(0)+"]または["+ExistFileName(1)+"]が見つかりません。", 1, ""+PROGRAM_NAME
 						}
 					}
 					ObjID = Project64kDirectoryPathInputObjectID
 					objprm ObjID, ""+Project64kDirectoryPath
-					//反映について
-					Titlebar = ""+PROGRAM_NAME
-					Message = "設定を反映するには、\nアプリケーションを再起動する必要があります。"
-					dialog Message, 0, Titlebar
 				}
 			gsel GselMem
 		return
