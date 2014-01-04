@@ -8,18 +8,22 @@
 	//= 終了処理
 	//----------------------------------------------------------------------------------------------
 		*__end
-			if( ExitCheckFlag == FALSE ){
-				ExitCheckFlag = TRUE
-				dialog ""+PROGRAM_NAME+" を終了します。\nよろしいですか？", 2, ""+PROGRAM_NAME+" "+PROGRAM_VERSION
+			if( SkipExitCheck == FALSE ){
+				dialog ""+PROGRAM_NAME+" を終了します。\nよろしいですか？\n\n(Shiftを押しながら「はい」で次回以降表示しない)", 2, ""+PROGRAM_NAME+" "+PROGRAM_VERSION
 				if( stat == 6 ){
+					//次回以降表示しないようにする
+					getkey ShiftKey ,16
+					if( ShiftKey == TRUE ){
+						SkipExitCheck = TRUE
+					}
 					gosub *__DataSave
 					gosub *__ClearScreen
 					redraw 1
 					cm_send SCR_SEND
 					end
-				} else {
-					ExitCheckFlag = FALSE
 				}
+			} else {
+				end
 			}
 		return
 
@@ -39,6 +43,8 @@
 			INISet sec, "path",	""+Project64kDirectoryPath
 			sec = "ComboCounterSkin File"
 			INISet sec, "path",	""+ComboCounterSkinPath
+			sec = "General"
+			INISet sec, "SkipExitCheck", ""+SkipExitCheck
 		return
 
 	//----------------------------------------------------------------------------------------------
@@ -47,9 +53,11 @@
 		*__DataLoad
 			INIInit ""+INI_FILE_NAME
 			sec = "Project64k Directory"
-			if( INIGet(sec, "path") )	{ Project64kDirectoryPath = refstr }	else { Project64kDirectoryPath = "(未設定)" }
+			if( INIGet(sec, "path") )			{ Project64kDirectoryPath = refstr }	else { Project64kDirectoryPath = "(未設定)" }
 			sec = "ComboCounterSkin File"
-			if( INIGet(sec, "path") )	{ ComboCounterSkinPath = refstr }		else { ComboCounterSkinPath = ""+DEFAULT_COMBO_COUNTER_SKIN_PATH }
+			if( INIGet(sec, "path") )			{ ComboCounterSkinPath = refstr }		else { ComboCounterSkinPath = ""+DEFAULT_COMBO_COUNTER_SKIN_PATH }
+			sec = "General"
+			if( INIGet(sec, "SkipExitCheck") )	{ SkipExitCheck = int(refstr) }			else { SkipExitCheck = FALSE }
 		return
 
 	//----------------------------------------------------------------------------------------------
@@ -104,11 +112,13 @@
 			button gosub "変更", *__ComboCounterSkinPathChange
 
 			//終了ボタン
+			/*
 			x = 304:	y = 152
 			w = 80:		h = 32
 			pos x, y
 			objsize w, h
 			button gosub "終了", *__end
+			*/
 		return
 
 	//----------------------------------------------------------------------------------------------

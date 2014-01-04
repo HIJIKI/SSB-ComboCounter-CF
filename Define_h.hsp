@@ -22,7 +22,7 @@
 	//= ウィンドウに関する定数
 	//----------------------------------------------------------------------------------------------
 		#define MAIN_WINDOW_SIZE_W		400			//ウィンドウサイズ横幅
-		#define MAIN_WINDOW_SIZE_H		192
+		#define MAIN_WINDOW_SIZE_H		152
 		#define SEND_WINDOW_SIZE_W		640			//CF へ送信するウィンドウサイズ
 		#define SEND_WINDOW_SIZE_H		480
 

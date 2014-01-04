@@ -14,7 +14,7 @@
 		dim ComboCounterAddress,	PLAYER_NUMBER		//コンボカウンターのアドレスを格納する配列
 		ComboCounterAddress = 0xA2D3C, 0xA2DB0, 0xA2E24, 0xA2E98
 
-		FrameCounterAddress = 0x3BAF4					//未使用
+		FrameCounterAddress = 0x3BAF4					//シーンの切り替えなどの検出に使用
 
 	//----------------------------------------------------------------------------------------------
 	//= コンボカウンター配列
