@@ -110,15 +110,6 @@
 			pos x, y
 			objsize w, h
 			button gosub "変更", *__ComboCounterSkinPathChange
-
-			//終了ボタン
-			/*
-			x = 304:	y = 152
-			w = 80:		h = 32
-			pos x, y
-			objsize w, h
-			button gosub "終了", *__end
-			*/
 		return
 
 	//----------------------------------------------------------------------------------------------
