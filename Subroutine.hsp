@@ -8,13 +8,13 @@
 	//= 終了処理
 	//----------------------------------------------------------------------------------------------
 		*__end
-			if( SkipExitCheck == FALSE ){
-				dialog ""+PROGRAM_NAME+" を終了します。\nよろしいですか？\n\n(Shiftを押しながら「はい」で次回以降表示しない)", 2, ""+PROGRAM_NAME+" "+PROGRAM_VERSION
+			if( SkipEndCheck == FALSE ){
+				dialog ""+PROGRAM_NAME+" を終了します。\nよろしいですか？\n(Shiftを押しながら「はい」で次回以降表示しない)", 2, ""+PROGRAM_NAME+" "+PROGRAM_VERSION
 				if( stat == 6 ){
 					//次回以降表示しないようにする
 					getkey ShiftKey ,16
 					if( ShiftKey == TRUE ){
-						SkipExitCheck = TRUE
+						SkipEndCheck = TRUE
 					}
 					gosub *__DataSave
 					gosub *__ClearScreen
@@ -44,7 +44,9 @@
 			sec = "ComboCounterSkin File"
 			INISet sec, "path",	""+ComboCounterSkinPath
 			sec = "General"
-			INISet sec, "SkipExitCheck", ""+SkipExitCheck
+			INISet sec, "SkipEndCheck", ""+SkipEndCheck
+			INISet sec, "AutoEndFlagSet", ""+AutoEndFlagSet
+			INISet sec, "AutoEnd", ""+AutoEnd
 		return
 
 	//----------------------------------------------------------------------------------------------
@@ -57,7 +59,9 @@
 			sec = "ComboCounterSkin File"
 			if( INIGet(sec, "path") )			{ ComboCounterSkinPath = refstr }		else { ComboCounterSkinPath = ""+DEFAULT_COMBO_COUNTER_SKIN_PATH }
 			sec = "General"
-			if( INIGet(sec, "SkipExitCheck") )	{ SkipExitCheck = int(refstr) }			else { SkipExitCheck = FALSE }
+			if( INIGet(sec, "SkipEndCheck") )	{ SkipEndCheck = int(refstr) }			else { SkipEndCheck = FALSE }
+			if( INIGet(sec, "AutoEndFlagSet") )	{ AutoEndFlagSet = int(refstr) }		else { AutoEndFlagSet = FALSE }
+			if( INIGet(sec, "AutoEnd") )		{ AutoEnd = int(refstr) }				else { AutoEnd = FALSE }
 		return
 
 	//----------------------------------------------------------------------------------------------

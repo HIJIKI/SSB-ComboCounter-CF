@@ -99,7 +99,7 @@
 				ReadProcMemory PJProcessID, BaseAddress+FrameCounterAddress, FrameCounter, 4
 				//ついでにPJが終了していた場合のフラグを管理
 				if( stat == -1 ){
-					PJExitFlag = TRUE
+					PJEndFlag = TRUE
 				}
 
 	//----------------------------------------------------------------------------------------------
@@ -109,6 +109,21 @@
 		//------------------------------------------------------------------------------------------
 		//= PJが終了されていた場合
 		//------------------------------------------------------------------------------------------
-			if( PJExitFlag == TRUE ){
-				end
+			if( PJEndFlag == TRUE ){
+				//画面を初期化
+				gosub *__ClearScreen: redraw 1: cm_send SCR_SEND
+				if( AutoEndFlagSet == TRUE ){
+					if( AutoEnd == TRUE ){
+						end
+					}
+				} else {
+					//動作記憶処理
+					dialog "Project64の終了を検出しました。\n"+PROGRAM_NAME+" を終了しますか？\n(この設定は保存され、次回以降は同じ動作をします)", 2, ""+PROGRAM_NAME+" "+PROGRAM_VERSION
+					AutoEnd = (stat==6)//はい=1, それ以外=0
+					AutoEndFlagSet = TRUE
+					gosub *__DataSave
+					if( AutoEnd == TRUE ){
+						end
+					}
+				}
 			}

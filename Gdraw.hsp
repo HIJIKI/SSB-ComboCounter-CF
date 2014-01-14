@@ -18,7 +18,7 @@
 			//--------------------------------------------------------------------------------------
 			//= コンボカウンター描画
 			//--------------------------------------------------------------------------------------
-				if( ComboCounterShow == TRUE ){
+				if( ComboCounterShow == TRUE )&&( PJEndFlag == FALSE ){
 					repeat PLAYER_NUMBER
 						if( ComboCounterFlag(cnt) == TRUE ){
 							x = BASE_POS_X+FRAME_SIZE_W*cnt	:	y = BASE_POS_Y
